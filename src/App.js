@@ -42,10 +42,31 @@ function App() {
             }
           />
           <Route path="/articles" element={<Articles />} />
-          <Route path="/articles/:slug" element={<ArticlePage />} />
-          <Route path="/articles/:slug/edit" element={<Edit />} />
+          <Route
+            path="/articles/:slug"
+            element={
+              <ProtectedRoute>
+                <ArticlePage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/articles/:slug/edit"
+            element={
+              <ProtectedRoute>
+                <Edit />
+              </ProtectedRoute>
+            }
+          />
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/new-article" element={<NewArticle />} />
+          <Route
+            path="/new-article"
+            element={
+              <ProtectedRoute>
+                <NewArticle />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/profile"
             element={
