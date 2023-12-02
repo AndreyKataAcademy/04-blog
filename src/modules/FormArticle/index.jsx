@@ -27,21 +27,23 @@ const FormArticle = ({ data }) => {
       tagList: data?.title ? [...data.tagList] : [" "],
     },
   });
-
+  const isUpdate = data?.title;
   const { fields, append, remove } = useFieldArray({
     control,
     name: "tagList",
   });
 
   async function onSubmit(data) {
-    if (data?.title) {
-      dispatch(updateArticle(data));
-      return;
+    if (isUpdate) dispatch(updateArticle(data));
+    if (!isUpdate) {
+      const newArticle = await dispatch(createArticle(data));
+      navigate(`/articles/${newArticle.payload.article.slug}`);
     }
+  }
+  async function onSubmitCreateArticle(data) {
     const newArticle = await dispatch(createArticle(data));
     navigate(`/articles/${newArticle.payload.article.slug}`);
   }
-
   return (
     <div>
       <FormArticleContainer
