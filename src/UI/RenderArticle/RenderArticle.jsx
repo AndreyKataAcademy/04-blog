@@ -5,7 +5,6 @@ import Like from "../Like";
 import classes from "./RenderArticle.module.css";
 
 const RenderArticle = ({ article }) => {
-  console.log(article);
   const navigate = useNavigate();
   return (
     <div
