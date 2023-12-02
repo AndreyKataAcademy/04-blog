@@ -136,7 +136,7 @@ const RenderProfileEditForm = () => {
               message: "Text of post must have at least 10 characters",
             },
             validate: (prev) => {
-              if (prev.slice(0, 1) === " ")
+              if (prev?.slice(0, 1) === " ")
                 return "The first character in short description cannot be a space.";
             },
           }}
