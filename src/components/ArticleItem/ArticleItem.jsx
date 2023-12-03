@@ -15,6 +15,7 @@ import {
 import classes from "./ArticleItem.module.css";
 
 const ArticleItem = ({ data }) => {
+  const { isFollowProcess } = useSelector((state) => state.main);
   const navigate = useNavigate();
   const { username } = useSelector((state) => state.main.userData);
   const dispatch = useDispatch();
@@ -31,10 +32,13 @@ const ArticleItem = ({ data }) => {
               {data?.title ? data.title : "Loading"}
             </p>
             <div
-              onClick={onFollow}
+              onClick={() => {
+                if (isFollowProcess) return;
+                onFollow();
+              }}
               className={`${classes.favoritesContainer} ${
                 data?.favorited ? "active" : ""
-              }`}
+              } ${isFollowProcess ? "disabled" : ""}`}
             >
               <Like isSelected={data?.favorited} />
               <p>

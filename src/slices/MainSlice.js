@@ -220,6 +220,7 @@ const initialState = {
   article: null,
   currentArticle: null,
   paginationCount: null,
+  isFollowProcess: false,
 };
 
 const MainSlice = createSlice({
@@ -326,18 +327,18 @@ const MainSlice = createSlice({
         state.isDataRequested = false;
       })
       .addCase(followArticle.pending, (state, action) => {
-        state.isDataRequested = true;
+        state.isFollowProcess = true;
       })
       .addCase(followArticle.fulfilled, (state, action) => {
         state.article = { ...action.payload.article };
-        state.isDataRequested = false;
+        state.isFollowProcess = false;
       })
       .addCase(unFollowArticle.pending, (state, action) => {
-        state.isDataRequested = true;
+        state.isFollowProcess = true;
       })
       .addCase(unFollowArticle.fulfilled, (state, action) => {
         state.article = { ...action.payload.article };
-        state.isDataRequested = false;
+        state.isFollowProcess = false;
       })
       .addCase(updateUser.pending, (state) => {
         state.isDataRequested = true;

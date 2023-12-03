@@ -48,3 +48,6 @@ a {
   min-height: 100vh;
   padding-top: 62px;
 }
+.disabled {
+  cursor: not-allowed;
+}
