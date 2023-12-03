@@ -102,9 +102,7 @@ const ArticleItem = ({ data }) => {
                     Edit
                   </button>
                 </div>
-              ) : (
-                "not-author"
-              )}
+              ) : null}
             </div>
             <div className={classes.imgContainer}>
               <img
