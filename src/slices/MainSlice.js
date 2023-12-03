@@ -309,14 +309,13 @@ const MainSlice = createSlice({
         state.isDataRequested = false;
         state.isAuth = true;
       })
+      .addCase(getArticles.pending, (state, action) => {
+        state.isDataRequested = true;
+      })
       .addCase(getArticles.fulfilled, (state, action) => {
         state.paginationCount = action.payload.articlesCount / 5;
         state.articles = action.payload.articles;
-        message.open({
-          type: "success",
-          content: "Articles are successfully uploaded!",
-          duration: 3,
-        });
+        state.isDataRequested = false;
       })
       .addCase(getArticle.pending, (state, action) => {
         state.isDataRequested = true;

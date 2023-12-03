@@ -3,12 +3,17 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import RenderArticle from "../../UI/RenderArticle/RenderArticle";
+import Spinner from "../../UI/Spinner/Spinner";
 import { getArticles, setArticlesIndex } from "../../slices/MainSlice";
 
 const RenderArticles = () => {
-  const { articlesIndex, articles, paginationCount, userData } = useSelector(
-    (state) => state.main,
-  );
+  const {
+    articlesIndex,
+    articles,
+    paginationCount,
+    userData,
+    isDataRequested,
+  } = useSelector((state) => state.main);
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getArticles());
@@ -27,9 +32,11 @@ const RenderArticles = () => {
         cursor: "pointer",
       }}
     >
-      {articles.map((el, index) => (
-        <RenderArticle key={index} article={el} />
-      ))}
+      {isDataRequested ? (
+        <Spinner />
+      ) : (
+        articles.map((el, index) => <RenderArticle key={index} article={el} />)
+      )}
       <div style={{ display: "flex", justifyContent: "center" }}>
         <ConfigProvider
           theme={{
