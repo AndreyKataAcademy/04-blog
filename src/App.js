@@ -1,3 +1,4 @@
+import { useDispatch } from "react-redux";
 import {
   Navigate,
   Route,
@@ -16,9 +17,12 @@ import NewArticle from "./pages/NewArticle";
 import PageNotFound from "./pages/PageNotFound";
 import Profile from "./pages/Profile";
 import Register from "./pages/Register";
+import { setAuth } from "./slices/MainSlice";
 import "./styles/styles.css";
 
 function App() {
+  const dispatch = useDispatch();
+  if (localStorage.getItem("token")) dispatch(setAuth());
   return (
     <div className="App">
       <Router>

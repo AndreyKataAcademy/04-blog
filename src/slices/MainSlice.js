@@ -1,6 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { message } from "antd";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+//const navigate = useNavigate()
 
 const requestOnCreateAccount = createAsyncThunk(
   "main/requestOnCreateAccount",
@@ -242,6 +244,9 @@ const MainSlice = createSlice({
     setCurrentArticle(store, action) {
       store.currentArticle = action.payload;
     },
+    setAuth(store) {
+      store.isAuth = !store.isAuth;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -276,7 +281,10 @@ const MainSlice = createSlice({
         state.isDataRequested = false;
       })
       .addCase(autoAuth.fulfilled, (state, action) => {
-        if (!action.payload.user.token) return;
+        if (!action?.payload?.user?.token) {
+          state.isAuth = false;
+          return;
+        }
         state.isDataRequested = false;
         state.userData = action.payload.user;
         state.isAuth = true;
@@ -285,6 +293,7 @@ const MainSlice = createSlice({
           content: "You are successfully authorized!",
           duration: 3,
         });
+        //navigate("/")
       })
       .addCase(auth.pending, (state) => {
         state.isDataRequested = true;
@@ -368,8 +377,13 @@ const MainSlice = createSlice({
 });
 
 export default MainSlice.reducer;
-export const { setCurrentArticle, setArticlesIndex, logOut, setErrorFunction } =
-  MainSlice.actions;
+export const {
+  setAuth,
+  setCurrentArticle,
+  setArticlesIndex,
+  logOut,
+  setErrorFunction,
+} = MainSlice.actions;
 export {
   requestOnCreateAccount,
   autoAuth,

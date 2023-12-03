@@ -160,7 +160,7 @@ const FormArticle = ({ data }) => {
             <button
               className={`${classes.addTagButton} button`}
               type="button"
-              onClick={() => append({})}
+              onClick={() => append("")}
             >
               Add Field
             </button>
