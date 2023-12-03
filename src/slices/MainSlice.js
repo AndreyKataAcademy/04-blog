@@ -259,6 +259,7 @@ const MainSlice = createSlice({
           for (const [key, value] of Object.entries(action.payload.errors)) {
             state.setError(key, { type: "server", message: `${key} ${value}` });
           }
+          state.isDataRequested = false;
           return;
         }
         state.isDataRequested = false;
