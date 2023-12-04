@@ -248,6 +248,13 @@ const MainSlice = createSlice({
     setAuth(store) {
       store.isAuth = !store.isAuth;
     },
+    autoSetArticlesIndex(store) {
+      if (!localStorage.getItem("articlesIndex")) {
+        localStorage.setItem("articlesIndex", "0");
+      } else {
+        store.articlesIndex = Number(localStorage.getItem("articlesIndex"));
+      }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -395,6 +402,7 @@ export const {
   setArticlesIndex,
   logOut,
   setErrorFunction,
+  autoSetArticlesIndex,
 } = MainSlice.actions;
 export {
   requestOnCreateAccount,
