@@ -356,6 +356,11 @@ const MainSlice = createSlice({
         state.article = { ...action.payload.article };
         state.isFollowProcess = false;
       })
+      .addCase(createArticle.fulfilled, (state, action) => {
+        state.isFollowProcess = true;
+        state.articlesIndex = 0;
+        localStorage.setItem("articlesIndex", 0);
+      })
       .addCase(updateUser.pending, (state) => {
         state.isDataRequested = true;
       })
