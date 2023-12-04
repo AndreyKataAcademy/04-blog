@@ -1,6 +1,6 @@
 import React from "react";
 import { useFieldArray, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import FormArticleContainer from "../../UI/FormArticleContainer/FormArticleContainer";
@@ -11,6 +11,7 @@ import { createArticle, updateArticle } from "../../slices/MainSlice";
 import classes from "./styles/FormArticle.module.css";
 
 const FormArticle = ({ data }) => {
+  const { currentArticle } = useSelector((state) => state.main);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const {
@@ -34,9 +35,12 @@ const FormArticle = ({ data }) => {
   });
 
   async function onSubmit(data) {
-    if (isUpdate) dispatch(updateArticle(data));
+    if (isUpdate) {
+      await dispatch(updateArticle(data));
+      navigate(`/articles/${currentArticle}`);
+    }
     if (!isUpdate) {
-      const newArticle = await dispatch(createArticle(data));
+      await dispatch(createArticle(data));
       navigate(`/articles/${newArticle.payload.article.slug}`);
     }
   }

@@ -51,3 +51,6 @@ a {
 .disabled {
   cursor: not-allowed;
 }
+body {
+  overflow-x: hidden;
+}
