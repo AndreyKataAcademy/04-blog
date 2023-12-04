@@ -41,7 +41,7 @@ const FormArticle = ({ data }) => {
     }
     if (!isUpdate) {
       await dispatch(createArticle(data));
-      navigate(`/articles/${newArticle.payload.article.slug}`);
+      navigate("/");
     }
   }
   async function onSubmitCreateArticle(data) {

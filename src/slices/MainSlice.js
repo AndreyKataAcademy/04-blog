@@ -231,6 +231,7 @@ const MainSlice = createSlice({
   reducers: {
     setArticlesIndex(store, action) {
       store.articlesIndex = action.payload - 1;
+      localStorage.setItem("articlesIndex", store.articlesIndex);
     },
     logOut(store) {
       store.isAuth = false;
@@ -281,10 +282,16 @@ const MainSlice = createSlice({
         state.isDataRequested = false;
       })
       .addCase(autoAuth.fulfilled, (state, action) => {
+        if (!localStorage.getItem("articlesIndex")) {
+          localStorage.setItem("articlesIndex", "0");
+        } else {
+          state.articlesIndex = Number(localStorage.getItem("articlesIndex"));
+        }
         if (!action?.payload?.user?.token) {
           state.isAuth = false;
           return;
         }
+
         state.isDataRequested = false;
         state.userData = action.payload.user;
         state.isAuth = true;
